@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
-# Rakuten API
-gem 'rakuten_web_service'
+ruby '3.4.1'
 
 # Dynamo DB
 gem 'aws-sdk-dynamodb'
