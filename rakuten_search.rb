@@ -1,4 +1,4 @@
-require 'rakuten_web_service'
+require 'rakuten_book_api_service'
 require 'rakuten_book_display'
 
 class RakutenSearch
@@ -17,32 +17,22 @@ class RakutenSearch
   end
 
   def run
-    books = request.map { |item| RakutenBookDisplay.new(item).run }
+    books = response[:items].map { |item| RakutenBookDisplay.new(item).run }
     books = books.select{ |item| valid_genre?(item[:genre_id]) }
-    count = books.count
-    has_next_page = request.next_page?
     {
-      count: count,
-      has_next_page: has_next_page,
-      books: books
+      count: books.count,
+      has_next_page: response[:page] < response[:page_count],
+      books: books,
     }
   end
 
   private
 
-  def request
-    return @request if defined? @request
-
-    RakutenWebService.configure do |c|
-      c.application_id = ENV['RAKUTEN_APPID']
-      c.affiliate_id = ENV['RAKUTEN_AFID']
-    end
-
-    @request ||= RakutenWebService::Books::Book.search(
+  def response
+    @response ||= RakutenBookApiService.new.search(
       title: keyword,
       hits: 20,
       page: page,
-      # books_genre_id: '001012010001', # GenreLevel:4の電気工学/別ジャンルにも技術書が含まれており、複数指定はできなかった..
     )
   end
 
