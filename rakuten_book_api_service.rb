@@ -3,7 +3,7 @@ require 'uri'
 require 'json'
 
 class RakutenBookApiService
-  ENDPOINT = 'https://openapi.rakuten.co.jp/engine/api/BooksBook/Search/20170404'.freeze
+  ENDPOINT = 'https://openapi.rakuten.co.jp/services/api/BooksBook/Search/20170404'.freeze
   ORIGIN = 'https://teckbook.net'.freeze
 
   class Error < StandardError; end
