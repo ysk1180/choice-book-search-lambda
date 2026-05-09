@@ -3,7 +3,7 @@
 
 ## Ruby バージョン
 
-Ruby 3.4.1（AWS Lambda の Ruby ランタイムに合わせる）
+Ruby 3.3.6（AWS Lambda の `ruby3.3` ランタイムに合わせる）
 
 ## 環境変数
 
